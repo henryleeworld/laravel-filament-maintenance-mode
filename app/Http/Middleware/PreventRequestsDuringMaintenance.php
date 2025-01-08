@@ -13,13 +13,12 @@ class PreventRequestsDuringMaintenance extends Middleware
      *
      * @var array<int, string>
      */
-    protected $except = [
-        //
-    ];
+    protected $except = [];
 
-    protected function bypassResponse(string $secret) : RedirectResponse
+    protected function bypassResponse(string $secret): RedirectResponse
     {
-        return redirect('admin')->withCookie(
+        // Optional: redirect to the Filament dashboard route when a secret is present, but of course, you can redirect to any URL you want.
+        return redirect(route('filament.admin.pages.dashboard'))->withCookie(
             MaintenanceModeBypassCookie::create($secret)
         );
     }
